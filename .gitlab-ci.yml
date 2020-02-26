@@ -15,11 +15,11 @@ build:
     - docker push $IMAGE_TAG
   
 .deploy: &deploy |
-  docker rm -f ${INSTANCE}.${DOCKER_NAME}.${MODE}.YoMeOcupo || true
-  echo "CREATING ${INSTANCE}.${DOCKER_NAME}.${MODE}.YoMeOcupo"
+  docker rm -f ${INSTANCE}.${DOCKER_NAME}.${MODE}.apa.guru || true
+  echo "CREATING ${INSTANCE}.${DOCKER_NAME}.${MODE}.apa.guru"
   eval "export UPMODE=$(echo ${MODE} | tr '[:lower:]' '[:upper:]')"
-  eval "docker create --name ${INSTANCE}.${DOCKER_NAME}.${MODE}.YoMeOcupo --restart=always --network=apa.guru $IMAGE_TAG"
-  docker start ${INSTANCE}.${DOCKER_NAME}.${MODE}.YoMeOcupo
+  eval "docker create --name ${INSTANCE}.${DOCKER_NAME}.${MODE}.apa.guru --restart=always --network=apa.guru $IMAGE_TAG"
+  docker start ${INSTANCE}.${DOCKER_NAME}.${MODE}.apa.guru
       
     
 test-deploy:
