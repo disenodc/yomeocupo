@@ -1,0 +1,43 @@
+image: gitlab.sistematis.com.ar:4567/infra/builders/node:10.15.1
+
+variables:
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  - eval "export DOCKER_NAME='${CI_PROJECT_NAME}.ui'"
+
+build:
+  stage: build
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  
+.deploy: &deploy |
+  docker rm -f ${INSTANCE}.${DOCKER_NAME}.${MODE}.YoMeOcupo || true
+  echo "CREATING ${INSTANCE}.${DOCKER_NAME}.${MODE}.YoMeOcupo"
+  eval "export UPMODE=$(echo ${MODE} | tr '[:lower:]' '[:upper:]')"
+  eval "docker create --name ${INSTANCE}.${DOCKER_NAME}.${MODE}.YoMeOcupo --restart=always --network=apa.guru $IMAGE_TAG"
+  docker start ${INSTANCE}.${DOCKER_NAME}.${MODE}.YoMeOcupo
+      
+    
+test-deploy:
+  stage: deploy
+  variables:
+    MODE: test
+  script:
+    - eval "export INSTANCE=10"
+    - *deploy
+  only:
+    - /^\d+\.\d+\.\d+-rc$/
+
+production-deploy:
+    stage: deploy
+    variables:
+      MODE: prod
+    script:
+      - eval "export INSTANCE=10"
+      - *deploy
+    only:
+      - /^\d+\.\d+\.\d+$/
