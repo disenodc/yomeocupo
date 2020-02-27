@@ -1,4 +1,4 @@
-image: gitlab.sistematis.com.ar:4567/infra/builders/node:10.15.1
+image: docker:dind
 
 variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
