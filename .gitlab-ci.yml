@@ -6,7 +6,7 @@ variables:
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-  - eval "export DOCKER_NAME='${CI_PROJECT_NAME}.ui'"
+  - eval "export DOCKER_NAME='${CI_PROJECT_NAME}.ymo'"
 
 build:
   stage: build
