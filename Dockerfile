@@ -4,5 +4,5 @@ ENV NAME="YoMeOcupo"
 ARG VERSION
 ENV VERSION=$VERSION
 
-COPY index.html /html
-COPY logo.png /html
+COPY index.html /html/
+COPY logo.png /html/
