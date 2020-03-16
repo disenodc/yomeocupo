@@ -17041,7 +17041,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 
 .lg-icon {
 	font-family: lg;
-	speak: none;
+	speak-as: none;
 	font-style: normal;
 	font-weight: 400;
 	font-variant: normal;
@@ -18606,3 +18606,63 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 		display: none;
 	}
 }
+
+/*
+* Logo Hidden
+*/
+@media (max-width: 767.68px) {
+	.xs-hidden {
+		display:none;
+	}
+}
+
+@media (min-width: 768px ) {
+	.lg-hidden {
+		display:none;
+	}
+}
+
+
+
+/*
+* arrow animated
+*/
+.elemento{
+	width: 100px;
+	height: 50px;
+	margin:0 auto;
+	position: relative;
+ }
+
+ .animatedColor {
+	color: white;
+  }
+   
+  .arrow {
+	 animation: arrow 1s ease-in-out infinite;
+	 font-size:40px !important;
+	   
+  }
+   
+  .arrow:hover{
+	animation:arrow 1s ease-out infinite !important;
+	color:#606461 !important;
+  }
+
+  /*animación*/
+
+  @keyframes arrow {
+	0% {
+	  transform: translate(0px, 50px);
+	}
+   
+	 50% {
+	  transform: translate(0px, 60px);
+	}
+	
+	100% {
+	  transform: translate(0px, 50px);
+	}
+  }
+
+
