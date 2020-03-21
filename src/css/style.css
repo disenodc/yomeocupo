@@ -18682,12 +18682,14 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
+/*
 .cover{
-	background: url("/images/logo_ymo.png") no-repeat fixed center;
+	background: url("/images/logo_ymo.png") repeat fixed center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 	text-align: center;
+	opacity: 0.2;
   
- }
+ } */
