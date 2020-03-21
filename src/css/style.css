@@ -1168,10 +1168,10 @@ div.box-custom-2 {
 
 .box-custom-2-bg img.map-image {
 	position: relative;
-	top: 35%;
-	left: 39%;
+	top: 0;
+	left: 0;
 	transform: scale(1.1);
-	opacity: .05;
+	opacity: 1;
 }
 
 .box-custom-2-bg-inner {
@@ -1190,7 +1190,6 @@ div.box-custom-2 {
 .box-custom-2-inner {
 	position: relative;
 	z-index: 2;
-	/* max-width: 420px; */
 }
 
 @media (min-width: 768px) {
@@ -5488,7 +5487,8 @@ section.breadcrumbs-custom + section {
 */
 .footer-classic {
 	border-top: 1px solid #ebebeb;
-	font-size: 15px;
+	font-size: 10px;
+	font-family: monospace;
 }
 
 .footer-classic .brand .brand-logo-dark {
@@ -5501,10 +5501,9 @@ section.breadcrumbs-custom + section {
 }
 
 .footer-classic h4 {
-	font-family: Poppins, sans-serif;
-	font-weight: 500;
+	font-family: monospace;
 	letter-spacing: .01em;
-	color: #151515;
+	color: #252525;
 }
 
 .footer-classic.footer-classic_boxed,
@@ -5536,7 +5535,9 @@ section.breadcrumbs-custom + section {
 }
 
 .footer-classic-aside .rights {
-	color: #84a593;
+	color: #1abc9c;
+	font-size: 12px;
+	font-family: monospace;
 }
 
 .footer-classic .footer-classic-title + * {
@@ -8563,7 +8564,7 @@ html .page * + .ot50 {
 	}
 	h3 + .owl-carousel,
 	h3 + .owl-carousel {
-		margin-top: 57px;
+		margin-top: 50px;
 	}
 	h2 + h4,
 	h2 + .heading-4,
@@ -8880,7 +8881,7 @@ html [class*='section-'].section-bottom-0 {
 	section.section-lg:first-of-type,
 	section.section-xl:first-of-type,
 	section.section-xxl:first-of-type {
-		padding-top: 40px;
+		padding-top: 80px;
 	}
 }
 
@@ -9899,7 +9900,7 @@ html .section-decoration-4 {
 * Accent Backgrounds 
 */
 .bg-accent {
-	background: #2f2f2f;
+	background: #f1f1f1;
 }
 
 .bg-accent .button-gray-700:hover {
@@ -10100,13 +10101,11 @@ p.rights a:hover {
 	}
 }
 
-.map {
+.bg-map {
+	background-image: url("images/648.jpg");
 	position: relative;
-	display: flex;
+	display: inside;
 	align-items: center;
-	justify-content: center;
-	max-width: 720px;
-	min-height: 280px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -10116,7 +10115,7 @@ p.rights a:hover {
 }
 
 .map-image {
-	opacity: .14;
+	opacity: 1;
 }
 
 .map-marker {
@@ -10250,7 +10249,7 @@ p.rights a:hover {
 }
 
 .context-dark .map-image, .bg-gray-900 .map-image, .bg-accent .map-image {
-	opacity: .11;
+	opacity: 1;
 }
 
 .context-dark .map-marker, .bg-gray-900 .map-marker, .bg-accent .map-marker {
@@ -15440,11 +15439,11 @@ html.rd-navbar-fixed-linked .page {
 }
 
 .owl-dot:hover, .owl-dot:focus {
-	background-color: #3061ff;
+	background-color: #1abc9c;
 }
 
 .owl-dot.active {
-	background-color: #3061ff;
+	background-color: #1abc9c;
 }
 
 .owl-carousel_profile-modern .owl-stage-outer {
@@ -18616,37 +18615,43 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	}
 }
 
-@media (min-width: 768px ) {
+@media (max-width: 1199px ) {
 	.lg-hidden {
 		display:none;
 	}
+	
 }
 
+@media (min-width: 767.99px) {
+	.lg-hidden1 {
+		display:none;
+	}
+}
 
 
 /*
 * arrow animated
 */
 .elemento{
-	width: 100px;
+	width: auto;
 	height: 50px;
 	margin:0 auto;
 	position: relative;
  }
 
  .animatedColor {
-	color: white;
+	color: #34495e;
   }
    
   .arrow {
 	 animation: arrow 1s ease-in-out infinite;
-	 font-size:40px !important;
-	   
+	 font-size: 40px !important;
+	 font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif";
   }
    
   .arrow:hover{
 	animation:arrow 1s ease-out infinite !important;
-	color:#606461 !important;
+	color: rgb(22, 160, 133) !important;
   }
 
   /*animación*/
@@ -18665,4 +18670,24 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	}
   }
 
+  .infotext {
+	  font-size: 12px;
+	  font-weight: lighter;
+	  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
+  .chevrontext {
+	  font-size: 20px;
+	  font-weight: normal ;
+	  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+.cover{
+	background: url("/images/logo_ymo.png") no-repeat fixed center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	text-align: center;
+  
+ }
