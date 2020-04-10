@@ -440,9 +440,9 @@ small,
 
 mark,
 .mark {
-	padding: 3px 5px;
-	color: #ffffff;
-	background: #3061ff;
+	padding: 10px;
+    font-size: 14pt;
+    color: #fff;
 }
 
 .big {
@@ -13392,7 +13392,7 @@ html.rd-navbar-fixed-linked .page {
 }
 
 .tab-content > .tab-pane p.big {
-	opacity: .5;
+	opacity: .75;
 	letter-spacing: 0;
 }
 
