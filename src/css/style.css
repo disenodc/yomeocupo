@@ -5517,7 +5517,7 @@ section.breadcrumbs-custom + section {
 }
 
 .footer-classic-main {
-	padding: 40px 0;
+	padding: 20px 0;
 }
 
 .footer-classic-list {
@@ -12422,8 +12422,8 @@ html.rd-navbar-fixed-linked .page {
 	right: 0;
 	height: 56px;
 	z-index: 1081;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 .rd-navbar-modern.rd-navbar-fixed .rd-navbar-element > * + * {
@@ -18682,6 +18682,23 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	  font-weight: lighter;
 	  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+
+  .text-footer {
+	  font-size: 18px;
+	  font-weight: normal;
+	  
+
+  }
+
+  .footer-row {
+	padding: 5px;
+  }
+
+  .text-0800 {
+	  vertical-align: middle;
+  
+	}
+
 
   .chevrontext {
 	  font-size: 20px;
