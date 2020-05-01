@@ -581,7 +581,7 @@ a, a:focus, a:active {
 }
 
 a:hover {
-	color: #3d3d3d;
+	color: #ffffff;
 }
 
 a[href*='tel'], a[href*='mailto'] {
@@ -18647,7 +18647,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
  }
 
  .animatedColor {
-	color: #3d3d3d;
+	/*color: #3d3d3d;*/
   }
 
   .arrow {
