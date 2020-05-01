@@ -1549,6 +1549,7 @@ pre code {
 .table-bordered thead th,
 .table-bordered thead td {
 	border-bottom-width: 1px;
+	border-radius: 3px;
 }
 
 .table-borderless th,
@@ -1569,8 +1570,10 @@ pre code {
 .table-primary,
 .table-primary > th,
 .table-primary > td {
-	background-color: transparent;
+	background-color: #ffffff;
+	color: #16a085;
 	border: solid 1px #16a085;
+	border-radius: 3px;
 }
 
 .table-hover .table-primary:hover {
