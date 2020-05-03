@@ -18704,6 +18704,9 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
+.hidden {
+	display: none;
+}
 /*
 .cover{
 	background: url("/images/logo_ymo.png") repeat fixed center;
