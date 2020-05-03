@@ -1,4 +1,4 @@
-image: docker:dind
+image: gitlab.sistematis.com.ar:4567/infra/builders/node:11.15.0
 
 variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
@@ -10,8 +10,14 @@ before_script:
 
 build:
   stage: build
+  cache:
+    key: node_11_15
+    paths:
+      - node_modules/
   script:
-    - docker build -t $IMAGE_TAG .
+    - npm install
+    - npm run build
+    - docker build -build-arg VERSION=${CI_COMMIT_REF_NAME} -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
   
 .deploy: &deploy |
@@ -38,6 +44,8 @@ production-deploy:
       MODE: prod
     script:
       - eval "export INSTANCE=10"
+      - *deploy
+      - eval "export INSTANCE=11"
       - *deploy
     only:
       - /^\d+\.\d+\.\d+$/

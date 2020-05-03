@@ -1,0 +1,22 @@
+{
+  "name": "YoMeOcupo",
+  "domain": "yomeocupo.pro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node helpers/dev_server.js",
+    "build": "node helpers/build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "clean-css": "^4.2.1",
+    "express": "^4.17.0",
+    "html-minifier": "^4.0.0",
+    "reload": "^3.0.1",
+    "svgo": "^1.2.2",
+    "uglify-js": "^3.9.1"
+  }
+}

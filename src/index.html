@@ -2,13 +2,7 @@
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
   <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WGG5XJ5');</script>
-    <!-- End Google Tag Manager -->
+    ${production("<!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WGG5XJ5');</script><!-- End Google Tag Manager -->")}
     <title>Inicio | YoMeOcupo.pro | </title>
     <meta name="viewport" content="width=device-width height=device-height initial-scale=1.0">
     <meta charset="utf-8">
@@ -16,17 +10,14 @@
     <meta name="author" content="Dario Ceballos">
     <meta name="description" content="Sitio Web oficial de YoMeOcupo || empresa de comercialización || Argentina ">
 
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="${image('favicon.ico')}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800%7CPoppins:300,400,500,600,700%7CMuli:200,300,400,500">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WGG5XJ5"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    ${production('<!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WGG5XJ5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) -->')}
     <div class="preloader" id="loading">
       <div class="preloader-body">
         <div id="loading-center-object">
@@ -50,8 +41,8 @@
                 <!--<button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>-->
                 <!-- RD Navbar Brand-->
                 <div class="rd-navbar-brand"> <a class="brand" href="index.html">
-                  <img class="lg-hidden" src="images/logo_ymo.png" alt="logo_ymo"/>
-                  <img class="lg-hidden2" src="images/logo_yomeocupo.png" alt="logo_yomeocupo" width="600" height="auto"/>
+                  <img class="lg-hidden" src="${image('logo_ymo.png')}" alt="logo_ymo"/>
+                  <img class="lg-hidden2" src="${image('logo_yomeocupo.png')}" alt="logo_yomeocupo" width="600" height="auto"/>
 
                 </a></div>
               </div>
@@ -72,11 +63,11 @@
       <div class="layout-4">
         <div class="layout-4-item">
           <div class="box-custom-2 bg-accent">
-            <div class="box-custom-2-bg bg-gray-900 cover"><!--<img class="map-image" src="images/world-map-light.jpg" alt=""> --></div>
+            <div class="box-custom-2-bg bg-gray-900 cover"></div>
             <div class="box-custom-2-inner">
               <div class="image">
-                <img class="xs-hidden" src="images/logo_yomeocupo.pro.svg" alt="" width="600" height="auto"/>
-                <img class="lg-hidden1" src="images/logo_ymo.png" alt="" width="600" height="auto"/>
+                <img class="xs-hidden" src="${image('logo_yomeocupo.pro.svg')}" alt="" width="600" height="auto"/>
+                <img class="lg-hidden1" src="${image('logo_ymo.png')}" alt="" width="600" height="auto"/>
               </div>
               <h2 class="wow fadeIn"></h2>
 
@@ -113,29 +104,29 @@
         <div class="row">
 
         <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe  ">
-                <img src="images/infograf-01.png" class="img-responsive">
+                <img src="${image('infograf-01.png')}" class="img-responsive">
             </div>
 
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter sprinkle">
-                <img src="images/infograf-02.png" class="img-responsive">
+                <img src="${image('infograf-02.png')}" class="img-responsive">
             </div>
 
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
-                <img src="images/infograf-03.png" class="img-responsive">
+                <img src="${image('infograf-03.png')}" class="img-responsive">
             </div>
           </div>
         <div class="row">
 
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter irrigation">
-                <img src="images/infograf-04.png" class="img-responsive">
+                <img src="${image('infograf-04.png')}" class="img-responsive">
             </div>
 
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter spray">
-                <img src="images/infograf-05.png" class="img-responsive">
+                <img src="${image('infograf-05.png')}" class="img-responsive">
             </div>
 
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter spray">
-                <img src="images/infograf-066.png" class="img-responsive">
+                <img src="${image('infograf-066.png')}" class="img-responsive">
             </div>
         </div>
 
@@ -170,7 +161,7 @@
                       <li>Una vez que conseguimos el cliente ideal lo contactamos con vos usando nuestras líneas para respetar tu anonimato y entre ustedes hacen la operación.</li>
                       </li>
                     </ul>
-                    <!--<img src="images/soluciones.jpg" alt="soluciones" width="90%" height="auto" style="padding: 15px; margin: 15px;"/>
+                    <!--<img src="${image('soluciones.jpg')}" alt="soluciones" width="90%" height="auto" style="padding: 15px; margin: 15px;"/>
                      <p>Concretada la transacción, celebr&aacutes la venta y liquidamos la comisión, según la siguiente tabla:</p></br>
                     <ul class="list-marked_secondary" style="list-style: none">
                       <li class="bg-info mark">|Si el Valor de tú producto es </br><strong>mayor a $50mil</strong> y <strong>menor a $100mil</span> </br>Pagás <span class="mdi mdi-chevron-double-right"> </span> 10%</strong></li>
@@ -263,8 +254,9 @@
       </footer>
     </div>
     <div class="snackbars" id="form-output-global"></div>
-    <script src="js/core.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="${vendor('core.min.js')}"></script>
+    <script src="${js('script.js')}"></script>
     <style>html {scroll-behavior:smooth }</style>
   </body>
+  ${reload}
 </html>
