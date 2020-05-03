@@ -17,7 +17,7 @@ build:
   script:
     - npm install
     - npm run build
-    - docker build -build-arg VERSION=${CI_COMMIT_REF_NAME} -t $IMAGE_TAG .
+    - docker build --build-arg VERSION=${CI_COMMIT_REF_NAME} -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
   
 .deploy: &deploy |
