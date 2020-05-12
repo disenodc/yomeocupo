@@ -367,7 +367,439 @@
 					}
 				}
 
-				
+				// Owl carousel
+				if (plugins.owl.length) {
+					for (var i = 0; i < plugins.owl.length; i++) {
+						var c = $(plugins.owl[i]);
+						plugins.owl[i].owl = c;
+
+						initOwlCarousel(c);
+					}
+				}
+
+				// Isotope
+				if (plugins.isotope.length) {
+					var isogroup = [];
+					for (var i = 0; i < plugins.isotope.length; i++) {
+						var isotopeItem = plugins.isotope[i],
+								isotopeInitAttrs = {
+									itemSelector: '.isotope-item',
+									layoutMode: isotopeItem.getAttribute('data-isotope-layout') ? isotopeItem.getAttribute('data-isotope-layout') : 'masonry',
+									filter: '*'
+								};
+
+						if (isotopeItem.getAttribute('data-column-width')) {
+							isotopeInitAttrs.masonry = {
+								columnWidth: parseFloat(isotopeItem.getAttribute('data-column-width'))
+							};
+						} else if (isotopeItem.getAttribute('data-column-class')) {
+							isotopeInitAttrs.masonry = {
+								columnWidth: isotopeItem.getAttribute('data-column-class')
+							};
+						}
+
+						var iso = new Isotope(isotopeItem, isotopeInitAttrs);
+						isotopeItem.isotope = iso;
+						isogroup.push(iso);
+					}
+
+
+					setTimeout(function () {
+						for (var i = 0; i < isogroup.length; i++) {
+							isogroup[i].element.className += " isotope--loaded";
+							isogroup[i].layout();
+						}
+					}, 200);
+
+					var resizeTimout;
+
+					$("[data-isotope-filter]").on("click", function (e) {
+						e.preventDefault();
+						var filter = $(this);
+						clearTimeout(resizeTimout);
+						filter.parents(".isotope-filters").find('.active').removeClass("active");
+						filter.addClass("active");
+						var iso = $('.isotope[data-isotope-group="' + this.getAttribute("data-isotope-group") + '"]'),
+								isotopeAttrs = {
+									itemSelector: '.isotope-item',
+									layoutMode: iso.attr('data-isotope-layout') ? iso.attr('data-isotope-layout') : 'masonry',
+									filter: this.getAttribute("data-isotope-filter") === '*' ? '*' : '[data-filter*="' + this.getAttribute("data-isotope-filter") + '"]'
+								};
+						if (iso.attr('data-column-width')) {
+							isotopeAttrs.masonry = {
+								columnWidth: parseFloat(iso.attr('data-column-width'))
+							};
+						} else if (iso.attr('data-column-class')) {
+							isotopeAttrs.masonry = {
+								columnWidth: iso.attr('data-column-class')
+							};
+						}
+						iso.isotope(isotopeAttrs);
+					}).eq(0).trigger("click")
+				}
+
+				// WOW
+				if ($html.hasClass('wow-animation') && plugins.wow.length && !isNoviBuilder && isDesktop) {
+					setTimeout(function () {
+						new WOW().init();
+					}, pageTransitionDuration + 100);
+				}
+
+				// RD Input Label
+				if (plugins.rdInputLabel.length) {
+					plugins.rdInputLabel.RDInputLabel();
+				}
+
+				// Regula
+				if (plugins.regula.length) {
+					attachFormValidator(plugins.regula);
+				}
+
+				// MailChimp Ajax subscription
+				if (plugins.mailchimp.length) {
+					for (i = 0; i < plugins.mailchimp.length; i++) {
+						var $mailchimpItem = $(plugins.mailchimp[i]),
+								$email = $mailchimpItem.find('input[type="email"]');
+
+						// Required by MailChimp
+						$mailchimpItem.attr('novalidate', 'true');
+						$email.attr('name', 'EMAIL');
+
+						$mailchimpItem.on('submit', $.proxy(function ($email, event) {
+							event.preventDefault();
+
+							var $this = this;
+
+							var data = {},
+									url = $this.attr('action').replace('/post?', '/post-json?').concat('&c=?'),
+									dataArray = $this.serializeArray(),
+									$output = $("#" + $this.attr("data-form-output"));
+
+							for (i = 0; i < dataArray.length; i++) {
+								data[dataArray[i].name] = dataArray[i].value;
+							}
+
+							$.ajax({
+								data: data,
+								url: url,
+								dataType: 'jsonp',
+								error: function (resp, text) {
+									$output.html('Server error: ' + text);
+
+									setTimeout(function () {
+										$output.removeClass("active");
+									}, 4000);
+								},
+								success: function (resp) {
+									$output.html(resp.msg).addClass('active');
+									$email[0].value = '';
+									var $label = $('[for="' + $email.attr('id') + '"]');
+									if ($label.length) $label.removeClass('focus not-empty');
+
+									setTimeout(function () {
+										$output.removeClass("active");
+									}, 6000);
+								},
+								beforeSend: function (data) {
+									var isNoviBuilder = window.xMode;
+
+									var isValidated = (function () {
+										var results, errors = 0;
+										var elements = $this.find('[data-constraints]');
+										var captcha = null;
+										if (elements.length) {
+											for (var j = 0; j < elements.length; j++) {
+
+												var $input = $(elements[j]);
+												if ((results = $input.regula('validate')).length) {
+													for (var k = 0; k < results.length; k++) {
+														errors++;
+														$input.siblings(".form-validation").text(results[k].message).parent().addClass("has-error");
+													}
+												} else {
+													$input.siblings(".form-validation").text("").parent().removeClass("has-error")
+												}
+											}
+
+											if (captcha) {
+												if (captcha.length) {
+													return validateReCaptcha(captcha) && errors === 0
+												}
+											}
+
+											return errors === 0;
+										}
+										return true;
+									})();
+
+									// Stop request if builder or inputs are invalide
+									if (isNoviBuilder || !isValidated)
+										return false;
+
+									$output.html('Submitting...').addClass('active');
+								}
+							});
+
+							return false;
+						}, $mailchimpItem, $email));
+					}
+				}
+
+				// Campaign Monitor ajax subscription
+				if (plugins.campaignMonitor.length) {
+					for (i = 0; i < plugins.campaignMonitor.length; i++) {
+						var $campaignItem = $(plugins.campaignMonitor[i]);
+
+						$campaignItem.on('submit', $.proxy(function (e) {
+							var data = {},
+									url = this.attr('action'),
+									dataArray = this.serializeArray(),
+									$output = $("#" + plugins.campaignMonitor.attr("data-form-output")),
+									$this = $(this);
+
+							for (i = 0; i < dataArray.length; i++) {
+								data[dataArray[i].name] = dataArray[i].value;
+							}
+
+							$.ajax({
+								data: data,
+								url: url,
+								dataType: 'jsonp',
+								error: function (resp, text) {
+									$output.html('Server error: ' + text);
+
+									setTimeout(function () {
+										$output.removeClass("active");
+									}, 4000);
+								},
+								success: function (resp) {
+									$output.html(resp.Message).addClass('active');
+
+									setTimeout(function () {
+										$output.removeClass("active");
+									}, 6000);
+								},
+								beforeSend: function (data) {
+									// Stop request if builder or inputs are invalide
+									if (isNoviBuilder || !isValidated($this.find('[data-constraints]')))
+										return false;
+
+									$output.html('Submitting...').addClass('active');
+								}
+							});
+
+							// Clear inputs after submit
+							var inputs = $this[0].getElementsByTagName('input');
+							for (var i = 0; i < inputs.length; i++) {
+								inputs[i].value = '';
+								var label = document.querySelector('[for="' + inputs[i].getAttribute('id') + '"]');
+								if (label) label.classList.remove('focus', 'not-empty');
+							}
+
+							return false;
+						}, $campaignItem));
+					}
+				}
+
+				// RD Mailform
+				if (plugins.rdMailForm.length) {
+					var i, j, k,
+							msg = {
+								'MF000': 'Successfully sent!',
+								'MF001': 'Recipients are not set!',
+								'MF002': 'Form will not work locally!',
+								'MF003': 'Please, define email field in your form!',
+								'MF004': 'Please, define type of your form!',
+								'MF254': 'Something went wrong with PHPMailer!',
+								'MF255': 'Aw, snap! Something went wrong.'
+							};
+
+					for (i = 0; i < plugins.rdMailForm.length; i++) {
+						var $form = $(plugins.rdMailForm[i]),
+								formHasCaptcha = false;
+
+						$form.attr('novalidate', 'novalidate').ajaxForm({
+							data: {
+								"form-type": $form.attr("data-form-type") || "contact",
+								"counter": i
+							},
+							beforeSubmit: function (arr, $form, options) {
+								if (isNoviBuilder)
+									return;
+
+								var form = $(plugins.rdMailForm[this.extraData.counter]),
+										inputs = form.find("[data-constraints]"),
+										output = $("#" + form.attr("data-form-output")),
+										captcha = form.find('.recaptcha'),
+										captchaFlag = true;
+
+								output.removeClass("active error success");
+
+								if (isValidated(inputs, captcha)) {
+
+									// veify reCaptcha
+									if (captcha.length) {
+										var captchaToken = captcha.find('.g-recaptcha-response').val(),
+												captchaMsg = {
+													'CPT001': 'Please, setup you "site key" and "secret key" of reCaptcha',
+													'CPT002': 'Something wrong with google reCaptcha'
+												};
+
+										formHasCaptcha = true;
+
+										$.ajax({
+											method: "POST",
+											url: "bat/reCaptcha.php",
+											data: {'g-recaptcha-response': captchaToken},
+											async: false
+										})
+										.done(function (responceCode) {
+											if (responceCode !== 'CPT000') {
+												if (output.hasClass("snackbars")) {
+													output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + captchaMsg[responceCode] + '</span></p>')
+
+													setTimeout(function () {
+														output.removeClass("active");
+													}, 3500);
+
+													captchaFlag = false;
+												} else {
+													output.html(captchaMsg[responceCode]);
+												}
+
+												output.addClass("active");
+											}
+										});
+									}
+
+									if (!captchaFlag) {
+										return false;
+									}
+
+									form.addClass('form-in-process');
+
+									if (output.hasClass("snackbars")) {
+										output.html('<p><span class="icon text-middle fa fa-circle-o-notch fa-spin icon-xxs"></span><span>Sending</span></p>');
+										output.addClass("active");
+									}
+								} else {
+									return false;
+								}
+							},
+							error: function (result) {
+								if (isNoviBuilder)
+									return;
+
+								var output = $("#" + $(plugins.rdMailForm[this.extraData.counter]).attr("data-form-output")),
+										form = $(plugins.rdMailForm[this.extraData.counter]);
+
+								output.text(msg[result]);
+								form.removeClass('form-in-process');
+
+								if (formHasCaptcha) {
+									grecaptcha.reset();
+								}
+							},
+							success: function (result) {
+								if (isNoviBuilder)
+									return;
+
+								var form = $(plugins.rdMailForm[this.extraData.counter]),
+										output = $("#" + form.attr("data-form-output")),
+										select = form.find('select');
+
+								form
+								.addClass(result === "MF000" ? 'success' : 'error')
+								.removeClass('form-in-process');
+
+								if (formHasCaptcha) {
+									grecaptcha.reset();
+								}
+
+								result = result.length === 5 ? result : 'MF255';
+								output.text(msg[result]);
+
+								if (result === "MF000") {
+									if (output.hasClass("snackbars")) {
+										output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + msg[result] + '</span></p>');
+									} else {
+										output.addClass("active success");
+									}
+								} else {
+									if (output.hasClass("snackbars")) {
+										output.html(' <p class="snackbars-left"><span class="icon icon-xxs mdi mdi-alert-outline text-middle"></span><span>' + msg[result] + '</span></p>');
+									} else {
+										output.addClass("active error");
+									}
+								}
+
+								form.clearForm();
+
+								if (select.length) {
+									select.select2("val", "");
+								}
+
+								form.find('input, textarea').trigger('blur');
+
+								setTimeout(function () {
+									output.removeClass("active error success");
+									form.removeClass('success error');
+								}, 3500);
+							}
+						});
+					}
+				}
+
+				// jQuery Count To
+				if (plugins.counter.length) {
+					for (var i = 0; i < plugins.counter.length; i++) {
+						var $counterNotAnimated = $(plugins.counter[i]).not('.animated');
+						$document.on("scroll", (function ($counterNotAnimated) {
+							return function (event) {
+								if ((!$counterNotAnimated.hasClass("animated")) && (isScrolledIntoView($counterNotAnimated))) {
+									$counterNotAnimated.countTo({
+										refreshInterval: 40,
+										from: 0,
+										to: parseInt($counterNotAnimated.text(), 10),
+										speed: $counterNotAnimated.attr("data-speed") || 1000
+									});
+
+									$counterNotAnimated.addClass('animated');
+									$document.off(event);
+								}
+							}
+
+						})($counterNotAnimated));
+					}
+
+					$document.trigger('scroll');
+				}
+
+				// Material Parallax
+				if (plugins.materialParallax.length) {
+					if (!isNoviBuilder && !isIE && !isMobile) {
+						plugins.materialParallax.parallax();
+
+						// heavy pages fix
+						$window.on('load', function () {
+							setTimeout(function () {
+								$window.scroll();
+							}, 500);
+						});
+					} else {
+						for (var i = 0; i < plugins.materialParallax.length; i++) {
+							var parallax = $(plugins.materialParallax[i]),
+									imgPath = parallax.data("parallax-img");
+
+							var parallaxBg = document.createElement('div');
+							parallaxBg.classList.add('material-parallax');
+							parallax.prepend(parallaxBg);
+
+							parallaxBg.style.backgroundImage = 'url(' + imgPath + ')';
+							parallaxBg.style.backgroundSize = 'cover';
+						}
+					}
+				}
 
 				// Winona buttons
 				if (plugins.buttonWinona.length && !isNoviBuilder && !isIE) {

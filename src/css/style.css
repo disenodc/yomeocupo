@@ -288,11 +288,16 @@ div.box-custom-2 {
 	z-index: 2;
 }
 
+
 .box-custom-2 {
-		padding: 15% 50px;
+		padding: 15% 20px ;
+
+}
+
+@media (max-width: 768px) {
+	.box-custom-2 {
+		padding: 40% 20px;
 	}
-.box-custom-2 {
-		padding: 10% 50px 10%;
 
 }
 .box-custom-2-bg {
@@ -506,11 +511,6 @@ html body .button-winona {
 	visibility: hidden;
 	transform: translate3d(-500px, 0, 0);
 	transition: .3s all ease;
-}
-
-#form-output-global.active {
-	visibility: visible;
-	transform: translate3d(0, 0, 0);
 }
 
 @media (min-width: 576px) {
